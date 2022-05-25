@@ -1,0 +1,42 @@
+{% set name = "fftw3" %}
+{% set version = "3.3.10" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+   url: https://www.fftw.org/fftw-3.3.10.tar.gz 
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - {{ compiler('gfortran') }}
+    - openmpi
+    
+  host:
+   
+  run:
+
+#test:
+#  imports:
+  
+
+about:
+  home: https://gitlab.com/ska-telescope/external/rascil.git
+  license: GPL-2.0-or-later
+  license_file: COPYING
+  summary: 'FFTW3 with MPI extension'
+  description: |
+   FFTW3 compiled with --enable-mpi --enable-openmp --disable-shared  CC="mpicc" F77="mpif90" MPICC="mpicc" CFLAGS="-O3" FFLAGS="-O3"
+  doc_url: https://github.com/FFTW/fftw3
+  dev_url: https://github.com/FFTW/fftw3
+
+extra:
+  recipe-maintainers:
+    - Filip Schramka 
+    
