@@ -15,6 +15,7 @@ jobs:
       - name: Install Conda Build
         run: |
           conda install conda-build
+          conda install anaconda
       - name: Build conda
         run: |
           cd conda/
