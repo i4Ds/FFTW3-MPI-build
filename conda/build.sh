@@ -6,4 +6,3 @@ COMPILER_PATH="$BUILD_PREFIX/bin"
 	F77="$COMPILER_PATH/mpif90" MPICC="$COMPILER_PATH/mpicc" CFLAGS="-O3" FFLAGS="-O3"
 make
 make install
-conda 
