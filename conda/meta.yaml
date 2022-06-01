@@ -27,7 +27,7 @@ requirements:
   
 
 about:
-  home: https://gitlab.com/ska-telescope/external/rascil.git
+  home: https://github.com/i4Ds/FFTW3-MPI-build
   license: GPL-2.0-or-later
   license_file: COPYING
   summary: 'FFTW3 with MPI extension'
