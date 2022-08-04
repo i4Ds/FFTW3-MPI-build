@@ -33,7 +33,7 @@ jobs:
         run: |
           echo "internal_folder=local" >> $GITHUB_ENV
           echo "internal_name=osx" >> $GITHUB_ENV
-      - name: Publish to Conda ${{ env.internal_name }} 
+      - name: Publish to Conda
         shell: bash -l {0}
         run: |
           conda activate base
