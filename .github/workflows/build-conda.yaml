@@ -1,10 +1,13 @@
-name: Build Conda Package Linux
+name: Build FFTW3-MPI Conda Package
 
 on: [ push ]
 
 jobs:
   build_and_upload:
-    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        os: [ macos-latest, ubuntu-latest ]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -20,14 +23,24 @@ jobs:
         run: |
           cd conda/
           conda build -c conda-forge .
-      - name: Publish to Conda Linux
+      - name: Set vars if Linux
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          echo "internal_folder=share" >> $GITHUB_ENV
+          echo "internal_name=linux" >> $GITHUB_ENV
+      - name: Set vars if MacOS
+        if: matrix.os == 'macos-latest'
+        run: |
+          echo "internal_folder=local" >> $GITHUB_ENV
+          echo "internal_name=osx" >> $GITHUB_ENV
+      - name: Publish to Conda ${{ env.internal_name }} 
         shell: bash -l {0}
         run: |
           conda activate base
-          anaconda -t ${{ secrets.ANACONDA_SECRET }} upload /usr/share/miniconda/conda-bld/linux-64/fftw3*.tar.bz2 --force
+          anaconda -t ${{ secrets.ANACONDA_SECRET }} upload /usr/${{ env.internal_folder }}/miniconda/conda-bld//${{ env.internal_name }}-64/fftw3*.tar.bz2 --force
   install_and_test:
     needs: build_and_upload
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
